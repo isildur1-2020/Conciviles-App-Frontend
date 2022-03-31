@@ -4,25 +4,20 @@ import { Footer } from "../../Footer/index";
 import { Drawer } from "../../Drawer/index";
 
 export const Page = ({ children }) => (
-  <Box
-    sx={{
-      display: "flex",
-      justifyContent: "center",
-    }}
-  >
+  <>
+    <Drawer />
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
       }}
     >
-      <Drawer />
       <Header />
-      {children}
+      <Box sx={{ height: "100%" }}>{children}</Box>
       <Footer />
     </Box>
-  </Box>
+  </>
 );

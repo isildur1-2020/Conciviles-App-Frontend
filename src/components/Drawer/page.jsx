@@ -13,7 +13,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import logo from "../../assets/logo.png";
 import style from "./style.module.scss";
 
-export const Page = ({ showDrawer, handleClose }) => (
+export const Page = ({ showDrawer, handleClose, handleLogout }) => (
   <Drawer
     anchor="left"
     open={showDrawer}
@@ -63,7 +63,7 @@ export const Page = ({ showDrawer, handleClose }) => (
       </List>
       <List>
         <Divider />
-        <ListItem button>
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
@@ -77,4 +77,5 @@ export const Page = ({ showDrawer, handleClose }) => (
 Page.propTypes = {
   showDrawer: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
