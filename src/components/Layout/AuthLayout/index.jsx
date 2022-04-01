@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { UIContext } from "../../../contexts/UIContext";
 import { Page } from "./page";
 
 export const AuthLayout = ({ children }) => {
+  const navigate = useNavigate();
   const UIState = useContext(UIContext);
   const { state, setState } = UIState;
   useEffect(() => {
@@ -12,6 +13,9 @@ export const AuthLayout = ({ children }) => {
       showDrawer: false,
     });
   }, []);
+  useEffect(() => {
+    if (!UIState.state.isAuth) navigate("/login");
+  }, [UIState.state.isAuth]);
   return state.isAuth ? (
     <Page children={children} />
   ) : (

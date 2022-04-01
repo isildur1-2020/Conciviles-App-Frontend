@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import PersonIcon from "@mui/icons-material/Person";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -26,16 +26,17 @@ export const Page = ({ state, handleChange, handleSubmit }) => (
       onSubmit={handleSubmit}
     >
       <Avatar sx={{ marginBottom: "8px", width: 48, height: 48 }}>
-        <PersonIcon sx={{ fontSize: 32 }} />
+        <PeopleAltIcon sx={{ fontSize: 32 }} />
       </Avatar>
       <Typography component="p" variant="h5">
         Login
       </Typography>
-      <Box mt={2} mb={1}>
+      <Box mt={4} mb={2}>
         <TextField
           id="username"
           name="username"
           label="Cédula"
+          size="small"
           variant="standard"
           value={state.username}
           onChange={handleChange}
@@ -47,13 +48,16 @@ export const Page = ({ state, handleChange, handleSubmit }) => (
           name="password"
           label="Contraseña"
           variant="standard"
+          size="small"
           type="password"
           value={state.password}
           onChange={handleChange}
         />
       </Box>
-      <Box mt={4}>
-        <Button type="submit">Iniciar Sesión</Button>
+      <Box mt={6}>
+        <Button type="submit" variant="outlined">
+          Iniciar Sesión
+        </Button>
       </Box>
     </Box>
   </>

@@ -16,6 +16,7 @@ const fetcher = (url) =>
 export const Assistance = () => {
   const URL = `${dev}/info`;
   const [loading, setLoading] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const { data, error } = useSWR(URL, fetcher);
   const { state, setState } = useContext(UIContext);
   const [info, setInfo] = useState({
@@ -32,6 +33,12 @@ export const Assistance = () => {
     setState({ ...state, employeeInfo: data });
   }, [data]);
 
+  useEffect(() => {
+    console.log(state.mainForm.id);
+    if (!state.mainForm.id) setSubmitDisabled(true);
+    else setSubmitDisabled(false);
+  }, [state.mainForm.id]);
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setInfo({ ...info, [name]: value });
@@ -42,15 +49,24 @@ export const Assistance = () => {
       setLoading(true);
       ev.preventDefault();
       const { mainForm } = state;
+      if (mainForm.id === "") return;
       const body = {
         ...mainForm,
         ...info,
       };
-      const resp = await axiosInstance({
+      const { data } = await axiosInstance({
         method: "POST",
         url: dev,
         data: body,
       });
+      const { err } = data;
+      if (err) {
+        return Swal.fire({
+          icon: "error",
+          title: "Algo salió mal",
+          text: "Verifica los campos",
+        });
+      }
       Swal.fire({
         icon: "success",
         title: "Guardado",
@@ -60,7 +76,7 @@ export const Assistance = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
-        title: "Algo salioó mal",
+        title: "Algo salió mal",
         text: err.message,
       });
     } finally {
@@ -76,6 +92,7 @@ export const Assistance = () => {
       setInfo={setInfo}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      submitDisabled={submitDisabled}
     />
   );
 };

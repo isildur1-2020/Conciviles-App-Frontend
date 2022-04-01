@@ -8,7 +8,7 @@ import { NotFound } from "./pages/NotFound/index";
 export const App = () => {
   const [state, setState] = useState({
     showDrawer: false,
-    isAuth: true,
+    isAuth: false,
     employeesInfo: [],
     mainForm: {},
   });
@@ -17,10 +17,10 @@ export const App = () => {
     <UIContext.Provider value={{ state, setState }}>
       <BrowserRouter>
         <Routes>
+          <Route index element={<Login />} />
           <Route path="/assistance" element={<Assistance />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Assistance />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </UIContext.Provider>

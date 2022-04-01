@@ -17,11 +17,17 @@ export const Page = ({
       <Autocomplete
         fullWidth
         disablePortal
+        disabled={!(data.length > 0)}
         id="autocomplete-employee"
         options={data}
         onChange={handleChangeEmployee}
         sx={{}}
-        renderInput={(params) => <TextField {...params} label="Empleado" />}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={`${!(data.length > 0) ? "Cargando..." : "Empleado"}`}
+          />
+        )}
       />
       <Grid item xs={12}>
         <TextField

@@ -36,9 +36,10 @@ export const Page = ({
   data,
   info,
   setInfo,
+  loading,
   handleChange,
   handleSubmit,
-  loading,
+  submitDisabled,
 }) => (
   <AuthLayout>
     <form onSubmit={handleSubmit}>
@@ -174,11 +175,19 @@ export const Page = ({
           </Grid>
           <Grid item xs={12} mt={3}>
             {!loading ? (
-              <Button fullWidth type="submit" variant="contained" size="large">
+              <Button
+                fullWidth
+                type="submit"
+                size="large"
+                variant="contained"
+                disabled={submitDisabled}
+              >
                 Guardar
               </Button>
             ) : (
-              <CircularProgress />
+              <Container>
+                <CircularProgress />
+              </Container>
             )}
           </Grid>
         </Grid>
