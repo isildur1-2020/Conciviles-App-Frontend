@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import useSWR from "swr";
 import { useContext } from "react";
 import { axiosInstance } from "../../axios/instance";
@@ -14,6 +15,7 @@ const fetcher = (url) =>
 
 export const Assistance = () => {
   const URL = `${dev}/info`;
+  const [loading, setLoading] = useState(false);
   const { data, error } = useSWR(URL, fetcher);
   const { state, setState } = useContext(UIContext);
   const [info, setInfo] = useState({
@@ -37,6 +39,7 @@ export const Assistance = () => {
 
   const handleSubmit = async (ev) => {
     try {
+      setLoading(true);
       ev.preventDefault();
       const { mainForm } = state;
       const body = {
@@ -44,14 +47,24 @@ export const Assistance = () => {
         ...info,
       };
       const resp = await axiosInstance({
-        method: "GET",
+        method: "POST",
         url: dev,
-        body,
+        data: body,
       });
-      console.log(resp);
+      Swal.fire({
+        icon: "success",
+        title: "Guardado",
+        text: "El registro se ha guardo exitosamente.",
+      });
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Algo salioó mal",
+        text: err.message,
+      });
     } finally {
+      setLoading(false);
     }
   };
 
@@ -59,6 +72,7 @@ export const Assistance = () => {
     <Page
       data={data}
       info={info}
+      loading={loading}
       setInfo={setInfo}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

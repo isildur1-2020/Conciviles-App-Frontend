@@ -14,6 +14,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import TimePicker from "@mui/lab/TimePicker";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Fecha (la registra el sistema)
 // Clase ( Operativo, Administrativo ) VIENE CON EL EMPLEADO
@@ -31,7 +32,14 @@ const Wrap = ({ children }) => (
   </LocalizationProvider>
 );
 
-export const Page = ({ data, info, setInfo, handleChange, handleSubmit }) => (
+export const Page = ({
+  data,
+  info,
+  setInfo,
+  handleChange,
+  handleSubmit,
+  loading,
+}) => (
   <AuthLayout>
     <form onSubmit={handleSubmit}>
       <Container maxWidth="xs">
@@ -165,9 +173,13 @@ export const Page = ({ data, info, setInfo, handleChange, handleSubmit }) => (
             />
           </Grid>
           <Grid item xs={12} mt={3}>
-            <Button fullWidth type="submit" variant="contained" size="large">
-              Guardar
-            </Button>
+            {!loading ? (
+              <Button fullWidth type="submit" variant="contained" size="large">
+                Guardar
+              </Button>
+            ) : (
+              <CircularProgress />
+            )}
           </Grid>
         </Grid>
       </Container>
