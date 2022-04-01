@@ -19,7 +19,8 @@ export const App = () => {
         <Routes>
           <Route path="/assistance" element={<Assistance />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Assistance />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </UIContext.Provider>
