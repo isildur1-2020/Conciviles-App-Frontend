@@ -56,6 +56,7 @@ export const Page = ({
             <FormControl fullWidth>
               <InputLabel id="location-label">Ubicación</InputLabel>
               <Select
+                disabled={state?.updateItem}
                 labelId="location-label"
                 id="location"
                 name="location"
@@ -92,6 +93,7 @@ export const Page = ({
             <FormControl fullWidth>
               <InputLabel id="turn-label">Turno</InputLabel>
               <Select
+                disabled={state?.updateItem}
                 labelId="turn-label"
                 id="turn"
                 name="turn"
@@ -144,6 +146,7 @@ export const Page = ({
             <FormControl fullWidth>
               <InputLabel id="novelity-label">Novedad</InputLabel>
               <Select
+                disabled={state?.updateItem}
                 labelId="novelity-label"
                 id="novelity"
                 name="novelity"
@@ -169,6 +172,7 @@ export const Page = ({
               rows={3}
               fullWidth
               multiline
+              disabled={state?.updateItem}
               value={info?.observations}
               onChange={handleChange}
               id="observations"
