@@ -6,9 +6,16 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import logo from "../../assets/logo.png";
+import style from "./style.module.scss";
 
 export const Page = ({ handleShow, handleLogout }) => (
-  <AppBar position="static">
+  <AppBar
+    position="static"
+    sx={{
+      backgroundColor: "#fad201",
+    }}
+  >
     <Toolbar>
       <IconButton
         size="large"
@@ -18,12 +25,12 @@ export const Page = ({ handleShow, handleLogout }) => (
         sx={{ mr: 2 }}
         onClick={handleShow}
       >
-        <MenuIcon />
+        <MenuIcon sx={{ color: "#000" }} />
       </IconButton>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-        Conciviles
-      </Typography>
-      <Button color="inherit" onClick={handleLogout}>
+      <div className={style.logoContainer}>
+        <img src={logo} title="conciviles" alt="conciviles" />
+      </div>
+      <Button color="inherit" onClick={handleLogout} sx={{ color: "#000" }}>
         Cerrar Sesión
       </Button>
     </Toolbar>

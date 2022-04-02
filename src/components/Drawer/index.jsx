@@ -13,11 +13,19 @@ export const Drawer = () => {
       ...state,
       showDrawer: false,
     });
+  const handleNavigate = (updateItem) => {
+    setState({
+      ...state,
+      updateItem,
+      showDrawer: false,
+    });
+  };
   return (
     <Page
       showDrawer={showDrawer}
       handleClose={handleClose}
       handleLogout={handleLogout}
+      handleNavigate={handleNavigate}
     />
   );
 };

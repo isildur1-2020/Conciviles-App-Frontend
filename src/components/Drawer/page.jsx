@@ -10,10 +10,16 @@ import IconButton from "@mui/material/IconButton";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CloseIcon from "@mui/icons-material/Close";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import logo from "../../assets/logo.png";
 import style from "./style.module.scss";
 
-export const Page = ({ showDrawer, handleClose, handleLogout }) => (
+export const Page = ({
+  showDrawer,
+  handleClose,
+  handleLogout,
+  handleNavigate,
+}) => (
   <Drawer
     anchor="left"
     open={showDrawer}
@@ -45,7 +51,7 @@ export const Page = ({ showDrawer, handleClose, handleLogout }) => (
     </Box>
     <Box
       sx={{
-        width: 300,
+        width: 340,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -54,12 +60,29 @@ export const Page = ({ showDrawer, handleClose, handleLogout }) => (
       mt={3}
     >
       <List>
-        <ListItem button>
+        <ListItem>
           <ListItemIcon>
             <AccessTimeIcon />
           </ListItemIcon>
-          <ListItemText primary=" Registrar Asistencia" />
+          <ListItemText primary=" REGISTRO ASISTENCIA" />
         </ListItem>
+        <Divider />
+        <Box ml={2}>
+          <ListItem button onClick={() => handleNavigate(false)}>
+            <ListItemIcon>
+              <CheckBoxOutlineBlankIcon />
+            </ListItemIcon>
+            <ListItemText primary="REGISTRO ENTRADA" />
+          </ListItem>
+        </Box>
+        <Box ml={2}>
+          <ListItem button onClick={() => handleNavigate(true)}>
+            <ListItemIcon>
+              <CheckBoxOutlineBlankIcon />
+            </ListItemIcon>
+            <ListItemText primary="REGISTRO SALIDA" />
+          </ListItem>
+        </Box>
       </List>
       <List>
         <Divider />
@@ -78,4 +101,5 @@ Page.propTypes = {
   showDrawer: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
+  handleNavigate: PropTypes.func.isRequired,
 };

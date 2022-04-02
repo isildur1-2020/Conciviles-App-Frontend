@@ -12,6 +12,7 @@ export const App = () => {
     employeesInfo: [],
     mainForm: {},
     supervisor: "",
+    updateItem: false,
   });
 
   useEffect(() => {

@@ -1,10 +1,9 @@
 import Swal from "sweetalert2";
 import useSWR from "swr";
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { axiosInstance } from "../../axios/instance";
 import { Page } from "./page";
 import { dev } from "../../config";
-import { useEffect, useState } from "react";
 import { UIContext } from "../../contexts/UIContext";
 import { token } from "../../utilities/token";
 
@@ -38,7 +37,6 @@ export const Assistance = () => {
   }, [data]);
 
   useEffect(() => {
-    console.log(state.mainForm.id);
     if (!state.mainForm.id) setSubmitDisabled(true);
     else setSubmitDisabled(false);
   }, [state.mainForm.id]);
@@ -52,12 +50,13 @@ export const Assistance = () => {
     try {
       setLoading(true);
       ev.preventDefault();
-      const { mainForm, supervisor } = state;
+      const { mainForm, supervisor, updateItem } = state;
       if (mainForm.id === "") return;
       const body = {
         ...mainForm,
         ...info,
         supervisor,
+        updateItem,
       };
       const { data } = await axiosInstance({
         method: "POST",
@@ -81,6 +80,7 @@ export const Assistance = () => {
         text: "El registro se ha guardo exitosamente.",
       });
       setInfo({
+        ...info,
         location: "",
         date: new Date(),
         turn: "",
@@ -105,6 +105,7 @@ export const Assistance = () => {
     <Page
       data={data}
       info={info}
+      state={state}
       loading={loading}
       setInfo={setInfo}
       handleChange={handleChange}

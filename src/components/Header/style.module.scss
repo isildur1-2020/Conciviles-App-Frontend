@@ -1,0 +1,7 @@
+.logoContainer {
+    padding: 2px 0;
+    flex-grow: 1;
+    & > img {
+        width: 100px;
+    }
+}

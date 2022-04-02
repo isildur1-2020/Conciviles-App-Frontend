@@ -35,6 +35,7 @@ const Wrap = ({ children }) => (
 export const Page = ({
   data,
   info,
+  state,
   setInfo,
   loading,
   handleChange,
@@ -75,6 +76,7 @@ export const Page = ({
             <Wrap>
               <DatePicker
                 label="Fecha"
+                readOnly
                 value={info?.date}
                 onChange={(newValue) =>
                   setInfo({
@@ -109,10 +111,10 @@ export const Page = ({
           <Grid item xs={6}>
             <Wrap>
               <TimePicker
+                disabled={state?.updateItem}
                 label="Hora entrada"
-                value={info?.input}
+                value={!state?.updateItem ? info?.input : null}
                 onChange={(newValue) => {
-                  console.log(newValue);
                   setInfo({
                     ...info,
                     input: newValue,
@@ -125,8 +127,9 @@ export const Page = ({
           <Grid item xs={6}>
             <Wrap>
               <TimePicker
+                disabled={!state?.updateItem}
                 label="Hora salida"
-                value={info?.output}
+                value={state?.updateItem ? info?.output : null}
                 onChange={(newValue) =>
                   setInfo({
                     ...info,
