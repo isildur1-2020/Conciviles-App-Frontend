@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const center = {
   display: "flex",
@@ -14,7 +15,13 @@ const center = {
   alignItems: "center",
 };
 
-export const Page = ({ state, handleChange, handleSubmit }) => (
+export const Page = ({
+  state,
+  loading,
+  handleChange,
+  handleSubmit,
+  disabledSubmit,
+}) => (
   <>
     <CssBaseline />
     <Box
@@ -55,9 +62,13 @@ export const Page = ({ state, handleChange, handleSubmit }) => (
         />
       </Box>
       <Box mt={6}>
-        <Button type="submit" variant="outlined">
-          Iniciar Sesión
-        </Button>
+        {!loading ? (
+          <Button disabled={disabledSubmit} type="submit" variant="outlined">
+            Iniciar Sesión
+          </Button>
+        ) : (
+          <CircularProgress />
+        )}
       </Box>
     </Box>
   </>

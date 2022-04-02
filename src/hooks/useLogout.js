@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UIContext } from "../contexts/UIContext";
 
 export const useLogout = () => {
-  const navigate = useNavigate();
+  const { state, setState } = useContext(UIContext);
 
   const logout = () => {
-    navigate("/login");
+    setState({
+      ...state,
+      isAuth: false,
+    });
+    window.localStorage.removeItem("token");
   };
 
   return [logout];

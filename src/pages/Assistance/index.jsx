@@ -48,11 +48,12 @@ export const Assistance = () => {
     try {
       setLoading(true);
       ev.preventDefault();
-      const { mainForm } = state;
+      const { mainForm, supervisor } = state;
       if (mainForm.id === "") return;
       const body = {
         ...mainForm,
         ...info,
+        supervisor,
       };
       const { data } = await axiosInstance({
         method: "POST",
@@ -71,6 +72,15 @@ export const Assistance = () => {
         icon: "success",
         title: "Guardado",
         text: "El registro se ha guardo exitosamente.",
+      });
+      setInfo({
+        location: "",
+        date: new Date(),
+        turn: "",
+        input: new Date(),
+        output: new Date(),
+        novelity: "",
+        observations: "Sin observaciones",
       });
     } catch (err) {
       console.log(err);
