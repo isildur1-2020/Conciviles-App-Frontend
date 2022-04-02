@@ -50,12 +50,12 @@ export const Assistance = () => {
     try {
       setLoading(true);
       ev.preventDefault();
-      const { mainForm, supervisor, updateItem } = state;
+      const { mainForm, updateItem } = state;
       if (mainForm.id === "") return;
       const body = {
         ...mainForm,
         ...info,
-        supervisor,
+        supervisor: window.localStorage.getItem("supervisor"),
         updateItem,
       };
       const { data } = await axiosInstance({
@@ -80,7 +80,6 @@ export const Assistance = () => {
         text: "El registro se ha guardo exitosamente.",
       });
       setInfo({
-        supervisor,
         location: "",
         date: new Date(),
         turn: "",

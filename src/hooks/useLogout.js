@@ -9,7 +9,7 @@ export const useLogout = () => {
       ...state,
       isAuth: false,
     });
-    window.localStorage.removeItem("token");
+    window.localStorage.clear();
   };
 
   return [logout];

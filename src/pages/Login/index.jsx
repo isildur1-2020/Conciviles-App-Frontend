@@ -42,9 +42,9 @@ export const Login = () => {
       UIState.setState((prevState) => ({
         ...prevState,
         isAuth: true,
-        supervisor,
       }));
       window.localStorage.setItem("token", token);
+      window.localStorage.setItem("supervisor", supervisor);
     } catch (err) {
       console.log(err);
     } finally {
