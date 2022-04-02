@@ -4,11 +4,15 @@ import { dev } from "../../config";
 import { useState, useContext, useEffect } from "react";
 import { UIContext } from "../../contexts/UIContext";
 import { axiosInstance } from "../../axios/instance";
+import { token } from "../../utilities/token";
 
 const fetcher = (url) =>
   axiosInstance({
     method: "GET",
     url,
+    headers: {
+      Authorization: token(),
+    },
   }).then((resp) => resp?.data?.data);
 
 export const EmployeeInfo = () => {

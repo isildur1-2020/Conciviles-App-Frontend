@@ -40,6 +40,7 @@ export const Page = ({
       </Typography>
       <Box mt={4} mb={2}>
         <TextField
+          autoComplete="username"
           id="username"
           name="username"
           label="Cédula"
@@ -51,6 +52,7 @@ export const Page = ({
       </Box>
       <Box>
         <TextField
+          autoComplete="current-password"
           id="password"
           name="password"
           label="Contraseña"

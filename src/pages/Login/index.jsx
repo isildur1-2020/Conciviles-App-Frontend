@@ -32,19 +32,20 @@ export const Login = () => {
         data: state,
       });
       console.log(data);
-      const { err, message, supervisor } = data;
+      const { err, message } = data;
       if (err)
         return Swal.fire({
           icon: "error",
           title: "Oops...",
           text: message,
         });
+      const { supervisor, token } = data;
       UIState.setState((prevState) => ({
         ...prevState,
         isAuth: true,
         supervisor,
       }));
-      window.localStorage.setItem("token", "hola");
+      window.localStorage.setItem("token", token);
     } catch (err) {
       console.log(err);
     } finally {

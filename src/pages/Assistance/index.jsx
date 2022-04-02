@@ -6,11 +6,15 @@ import { Page } from "./page";
 import { dev } from "../../config";
 import { useEffect, useState } from "react";
 import { UIContext } from "../../contexts/UIContext";
+import { token } from "../../utilities/token";
 
 const fetcher = (url) =>
   axiosInstance({
     method: "GET",
     url,
+    headers: {
+      Authorization: token(),
+    },
   }).then((resp) => resp?.data?.data);
 
 export const Assistance = () => {
@@ -59,6 +63,9 @@ export const Assistance = () => {
         method: "POST",
         url: dev,
         data: body,
+        headers: {
+          Authorization: token(),
+        },
       });
       const { err } = data;
       if (err) {
