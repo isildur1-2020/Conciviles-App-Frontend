@@ -31,7 +31,6 @@ export const Login = () => {
         method: "POST",
         data: state,
       });
-      console.log(data);
       const { err, message } = data;
       if (err)
         return Swal.fire({
