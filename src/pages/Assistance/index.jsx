@@ -80,7 +80,7 @@ export const Assistance = () => {
         text: "El registro se ha guardo exitosamente.",
       });
       setInfo({
-        ...info,
+        supervisor,
         location: "",
         date: new Date(),
         turn: "",
