@@ -47,7 +47,7 @@ export const Page = ({
       <Container maxWidth="xs">
         <Box my={6}>
           <Typography component="h2" variant="h5" align="center">
-            Registro Asistencia
+            Registro {!state.updateItem ? "Entrada" : "Salida"}
           </Typography>
         </Box>
         <EmployeeInfo />
@@ -76,8 +76,8 @@ export const Page = ({
           <Grid item xs={6}>
             <Wrap>
               <DatePicker
-                label="Fecha"
                 readOnly
+                label="Fecha"
                 value={info?.date}
                 onChange={(newValue) =>
                   setInfo({
@@ -181,21 +181,29 @@ export const Page = ({
             />
           </Grid>
           <Grid item xs={12} mt={3}>
-            {!loading ? (
-              <Button
-                fullWidth
-                type="submit"
-                size="large"
-                variant="contained"
-                disabled={submitDisabled}
-              >
-                Guardar
-              </Button>
-            ) : (
-              <Container>
-                <CircularProgress />
-              </Container>
-            )}
+            <Box>
+              {!loading ? (
+                <Button
+                  fullWidth
+                  type="submit"
+                  size="large"
+                  variant="contained"
+                  disabled={submitDisabled}
+                >
+                  Guardar
+                </Button>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </Box>
+              )}
+            </Box>
           </Grid>
         </Grid>
       </Container>

@@ -6,6 +6,7 @@ import { Page } from "./page";
 import { dev } from "../../config";
 import { UIContext } from "../../contexts/UIContext";
 import { token } from "../../utilities/token";
+import moment from "moment";
 
 const fetcher = (url) =>
   axiosInstance({
@@ -24,10 +25,10 @@ export const Assistance = () => {
   const { state, setState } = useContext(UIContext);
   const [info, setInfo] = useState({
     location: "",
-    date: new Date(),
+    date: moment(),
     turn: "",
-    input: new Date(),
-    output: new Date(),
+    input: moment(),
+    output: moment(),
     novelity: "",
     observations: "Sin observaciones",
   });
@@ -66,19 +67,28 @@ export const Assistance = () => {
           Authorization: token(),
         },
       });
-      const { err } = data;
+      const { err, message } = data;
       if (err) {
         return Swal.fire({
           icon: "error",
-          title: "Algo salió mal",
-          text: "Verifica los campos",
+          title: "Oops...",
+          text: message,
         });
       }
       Swal.fire({
         icon: "success",
-        title: "Guardado",
-        text: "El registro se ha guardo exitosamente.",
+        title: "Completado",
+        text: message,
       });
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message,
+      });
+    } finally {
+      setLoading(false);
       setInfo({
         location: "",
         date: new Date(),
@@ -88,15 +98,6 @@ export const Assistance = () => {
         novelity: "",
         observations: "Sin observaciones",
       });
-    } catch (err) {
-      console.log(err);
-      Swal.fire({
-        icon: "error",
-        title: "Algo salió mal",
-        text: err.message,
-      });
-    } finally {
-      setLoading(false);
     }
   };
 
