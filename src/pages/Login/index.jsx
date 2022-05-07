@@ -5,6 +5,7 @@ import { axiosInstance } from "../../axios/instance";
 import Swal from "sweetalert2";
 import { dev } from "../../config";
 import { Page } from "./page";
+import { BackURI } from "../../config";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const Login = () => {
       ev.preventDefault();
       setLoading(true);
       const { data } = await axiosInstance({
-        url: `${dev}/login`,
+        url: `${BackURI}/login`,
         method: "POST",
         data: state,
       });

@@ -1,2 +1,3 @@
-// export const dev = "http://localhost:3456/api";
-export const dev = "https://conciviles-app.herokuapp.com/api";
+export const BackURI = "http://localhost:34657";
+export const dev = `${BackURI}/api`;
+// export const dev = "https://conciviles-app.herokuapp.com/api";

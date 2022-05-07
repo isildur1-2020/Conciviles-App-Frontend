@@ -10,11 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CloseIcon from "@mui/icons-material/Close";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AssignmentReturnedIcon from "@mui/icons-material/AssignmentReturned";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import logo from "../../assets/logo.png";
 import style from "./style.module.scss";
 
 export const Page = ({
+  navigate,
   showDrawer,
   handleClose,
   handleLogout,
@@ -60,7 +62,7 @@ export const Page = ({
       mt={3}
     >
       <List>
-        <ListItem>
+        <ListItem button onClick={() => navigate("/assistance")}>
           <ListItemIcon>
             <AccessTimeIcon />
           </ListItemIcon>
@@ -83,6 +85,12 @@ export const Page = ({
             <ListItemText primary="REGISTRO SALIDA" />
           </ListItem>
         </Box>
+        <ListItem button onClick={() => navigate("/download-assistance")}>
+          <ListItemIcon>
+            <AssignmentReturnedIcon />
+          </ListItemIcon>
+          <ListItemText primary="DESCARGAR ASISTENCIA" />
+        </ListItem>
       </List>
       <List>
         <Divider />

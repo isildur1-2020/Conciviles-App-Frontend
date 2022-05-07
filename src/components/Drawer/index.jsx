@@ -2,8 +2,10 @@ import { Page } from "./page";
 import { useContext } from "react";
 import { UIContext } from "../../contexts/UIContext";
 import { useLogout } from "../../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 export const Drawer = () => {
+  const navigate = useNavigate();
   const [handleLogout] = useLogout();
   const UIState = useContext(UIContext);
   const { state, setState } = UIState;
@@ -22,6 +24,7 @@ export const Drawer = () => {
   };
   return (
     <Page
+      navigate={navigate}
       showDrawer={showDrawer}
       handleClose={handleClose}
       handleLogout={handleLogout}
