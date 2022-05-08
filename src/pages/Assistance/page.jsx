@@ -155,7 +155,7 @@ export const Page = ({
                 onChange={handleChange}
               >
                 <MenuItem value="">Seleccionar...</MenuItem>
-                {data &&
+                {data?.length > 0 &&
                   Object.keys(data?.novedad)?.map((id) => {
                     const value = data?.novedad?.[id];
                     return (
