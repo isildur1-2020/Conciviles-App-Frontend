@@ -155,15 +155,14 @@ export const Page = ({
                 onChange={handleChange}
               >
                 <MenuItem value="">Seleccionar...</MenuItem>
-                {data?.length > 0 &&
-                  Object.keys(data?.novedad)?.map((id) => {
-                    const value = data?.novedad?.[id];
-                    return (
-                      <MenuItem key={id} value={id}>
-                        {value}
-                      </MenuItem>
-                    );
-                  })}
+                {Object.keys(data?.novedad ?? {})?.map((id) => {
+                  const value = data?.novedad?.[id];
+                  return (
+                    <MenuItem key={id} value={id}>
+                      {value}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>
