@@ -75,9 +75,9 @@ export const Page = ({
   </Box>
 );
 
-// Page.propTypes = {
-//   data,
-//   handleChangeEmployee,
-//   employee,
-//   chargeItems,
-// };handleInputChange
+Page.propTypes = {
+  data: PropTypes.array.isRequired,
+  employee: PropTypes.object.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleChangeEmployee: PropTypes.func.isRequired,
+};

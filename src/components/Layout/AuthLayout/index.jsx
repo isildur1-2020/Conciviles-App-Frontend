@@ -1,22 +1,9 @@
-import { useContext, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { UIContext } from "../../../contexts/UIContext";
+import { Navigate } from "react-router-dom";
+import { token } from "../../../utilities/token";
 import { Page } from "./page";
 
 export const AuthLayout = ({ children }) => {
-  const navigate = useNavigate();
-  const UIState = useContext(UIContext);
-  const { state, setState } = UIState;
-  useEffect(() => {
-    setState({
-      ...state,
-      showDrawer: false,
-    });
-  }, []);
-  useEffect(() => {
-    if (!UIState.state.isAuth) navigate("/login");
-  }, [UIState.state.isAuth]);
-  return state.isAuth ? (
+  return token() ? (
     <Page children={children} />
   ) : (
     <Navigate to="/login" replace />

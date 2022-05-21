@@ -1,71 +1,84 @@
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import PersonIcon from "@mui/icons-material/Person";
 import CircularProgress from "@mui/material/CircularProgress";
-
-const center = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-};
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import logotipo from "../../assets/logo.png";
+import styles from "./styles.module.scss";
 
 export const Page = ({
   state,
   loading,
   handleChange,
   handleSubmit,
-  disabledSubmit,
+  handleShowPassword,
 }) => (
   <>
     <CssBaseline />
-    <Box
-      sx={{
-        height: "100vh",
-        ...center,
-      }}
-      component="form"
-      onSubmit={handleSubmit}
-    >
-      <Avatar sx={{ marginBottom: "8px", width: 48, height: 48 }}>
-        <PeopleAltIcon sx={{ fontSize: 32 }} />
-      </Avatar>
-      <Typography component="p" variant="h5">
-        Login
-      </Typography>
-      <Box mt={4} mb={2}>
-        <TextField
-          autoComplete="username"
-          id="username"
-          name="username"
-          label="Cédula"
-          size="small"
-          variant="standard"
-          value={state.username}
-          onChange={handleChange}
-        />
+    <Box component="form" className={styles.Login} onSubmit={handleSubmit}>
+      <Box mb={1} className={styles.Login__logotipo}>
+        <img src={logotipo} alt="conciviles" title="conciviles" />
       </Box>
-      <Box>
-        <TextField
-          autoComplete="current-password"
-          id="password"
-          name="password"
-          label="Contraseña"
-          variant="standard"
-          size="small"
-          type="password"
-          value={state.password}
-          onChange={handleChange}
-        />
+      <Box className={styles.Login__credentials}>
+        <Box mt={4} mb={2}>
+          <TextField
+            autoComplete="username"
+            name="username"
+            label="Usuario"
+            size="small"
+            variant="standard"
+            value={state.username}
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            autoComplete="current-password"
+            id="password"
+            name="password"
+            label="Cédula"
+            variant="standard"
+            type={state.showPassword ? "text" : "password"}
+            value={state.password}
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FeaturedPlayListIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="start">
+                  <IconButton onClick={handleShowPassword}>
+                    {state.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </Box>
       <Box mt={6}>
         {!loading ? (
-          <Button disabled={disabledSubmit} type="submit" variant="outlined">
+          <Button
+            type="submit"
+            variant="outlined"
+            disabled={state.disabledSubmit}
+          >
             Iniciar Sesión
           </Button>
         ) : (
@@ -78,6 +91,8 @@ export const Page = ({
 
 Page.propTypes = {
   state: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  handleShowPassword: PropTypes.func.isRequired,
 };

@@ -1,32 +1,39 @@
+import useSWR from "swr";
 import { axiosInstance } from "../../axios/instance";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BackURI } from "../../config";
 import { Page } from "./page";
 import { token } from "../../utilities/token";
 import Swal from "sweetalert2";
+import { swalConfirm } from "../../modals/swal/confirm";
+
+const fetcher = (url) =>
+  axiosInstance({
+    url,
+    headers: {
+      Authorization: token(),
+    },
+  }).then((resp) => resp?.data?.board);
 
 export const AssistanceActions = () => {
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { data, error } = useSWR("/assistance/info", fetcher, {
+    refreshInterval: 5000,
+  });
   const [info, setInfo] = useState({
     id: "",
     name: "",
   });
-  const getAssitanceBoardInfo = async () => {
-    try {
-      const resp = await axiosInstance({
-        url: "/assistance/info",
-        headers: {
-          Authorization: token(),
-        },
-      });
-      setInfo(resp.data.board);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   const closeAssistance = async () => {
     try {
       setDisabled(true);
+      setLoading(true);
+      const { isConfirmed } = await swalConfirm({
+        text: "Se archivará la tabla actual. Los datos se almacenarán en un nuevo documento, deseas continuar?",
+      });
+      if (!isConfirmed) return;
       const { data } = await axiosInstance({
         url: "/assistance",
         headers: {
@@ -49,6 +56,7 @@ export const AssistanceActions = () => {
       console.log(err);
     } finally {
       setDisabled(false);
+      setLoading(false);
     }
   };
 
@@ -58,12 +66,13 @@ export const AssistanceActions = () => {
   };
 
   useEffect(() => {
-    getAssitanceBoardInfo();
-  }, [disabled]);
+    setInfo(data);
+  }, [data]);
 
   return (
     <Page
       info={info}
+      loading={loading}
       disabled={disabled}
       closeAssistance={closeAssistance}
       getAssistanceXLSX={getAssistanceXLSX}

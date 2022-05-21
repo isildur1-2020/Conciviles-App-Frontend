@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
+import { CircularProgress } from "@mui/material";
 
 export const Page = ({
   info,
+  loading,
   closeAssistance,
   getAssistanceXLSX,
   disabled,
@@ -22,16 +24,20 @@ export const Page = ({
         }}
       >
         <Typography component="h2" variant="h6" align="center">
-          ID tabla Actual: {info?.id}
+          Board ID: {info?.id ?? ""}
         </Typography>
         <Typography component="h2" variant="h6" align="center">
-          Nombre tabla Actual: {info?.name}
+          Board: {info?.name ?? ""}
         </Typography>
         <Box mt={3}>
           <ButtonGroup variant="outlined">
-            <Button disabled={disabled} onClick={closeAssistance}>
-              CERRAR ASISTENCIA
-            </Button>
+            {!loading ? (
+              <Button disabled={disabled} onClick={closeAssistance}>
+                CERRAR ASISTENCIA
+              </Button>
+            ) : (
+              <CircularProgress />
+            )}
             <Button onClick={getAssistanceXLSX}>DESCARGAR ASISTENCIA</Button>
           </ButtonGroup>
         </Box>

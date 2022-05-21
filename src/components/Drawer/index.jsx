@@ -15,20 +15,26 @@ export const Drawer = () => {
       ...state,
       showDrawer: false,
     });
-  const handleNavigate = (updateItem) => {
+  const handleInput = (option) => {
     setState({
       ...state,
-      updateItem,
+      updateItem: option,
       showDrawer: false,
     });
+    navigate("/assistance");
+  };
+  const handleDownloadXSLX = () => {
+    handleClose();
+    navigate("/download-assistance");
   };
   return (
     <Page
       navigate={navigate}
       showDrawer={showDrawer}
       handleClose={handleClose}
+      handleInput={handleInput}
       handleLogout={handleLogout}
-      handleNavigate={handleNavigate}
+      handleDownloadXSLX={handleDownloadXSLX}
     />
   );
 };

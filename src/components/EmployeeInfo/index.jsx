@@ -6,6 +6,14 @@ import { UIContext } from "../../contexts/UIContext";
 import { axiosInstance } from "../../axios/instance";
 import { token } from "../../utilities/token";
 
+const adapter = (data) =>
+  data.reduce((prev, curr) => {
+    const { label: id, info } = curr;
+    const { apellidos_y_nombre } = info;
+    const label = `${id} - ${apellidos_y_nombre.text}`;
+    return [...prev, { label, info }];
+  }, []);
+
 const fetcher = (url) =>
   axiosInstance({
     method: "GET",
@@ -13,15 +21,14 @@ const fetcher = (url) =>
     headers: {
       Authorization: token(),
     },
-  }).then((resp) => resp?.data?.data);
+  }).then((resp) => adapter(resp?.data?.data));
 
 export const EmployeeInfo = () => {
   const URL = `${dev}/employees`;
-  const { state, setState } = useContext(UIContext);
-  const { employeeInfo } = state;
-
   const { data, error } = useSWR(URL, fetcher);
+  const { state, setState } = useContext(UIContext);
   const [chargeItems, setChargeItems] = useState({});
+  const { employeeInfo } = state;
   const [employee, setEmployee] = useState({
     id: "",
     name: "",
@@ -46,17 +53,23 @@ export const EmployeeInfo = () => {
         class: "",
       });
     const { label, info } = value;
-    const [nameObj, chargeObj, classObj] = info;
     const formatData = {
-      name: nameObj?.value ?? "",
-      charge: chargeObj?.value?.ids?.[0] ?? "",
-      class: classObj?.value?.index ?? "",
+      name: info?.["apellidos_y_nombre"]?.value ?? "",
+      charge: info?.["cargo6"]?.value?.ids?.[0] ?? "",
+      class: info?.["clase"]?.value?.index ?? "",
     };
     setEmployee({
       id: label,
       ...formatData,
     });
   };
+
+  useEffect(() => {
+    setState({
+      ...state,
+      mainForm: employee,
+    });
+  }, [employee]);
 
   useEffect(() => {
     const newCharge = employeeInfo?.cargo?.reduce(
@@ -68,13 +81,6 @@ export const EmployeeInfo = () => {
     );
     setChargeItems(newCharge);
   }, [employeeInfo]);
-
-  useEffect(() => {
-    setState({
-      ...state,
-      mainForm: employee,
-    });
-  }, [employee]);
 
   return (
     <Page

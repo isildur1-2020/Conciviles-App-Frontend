@@ -5,7 +5,7 @@ import { axiosInstance } from "../../axios/instance";
 import { Page } from "./page";
 import { dev } from "../../config";
 import { UIContext } from "../../contexts/UIContext";
-import { token } from "../../utilities/token";
+import { token, supervisor } from "../../utilities/token";
 import moment from "moment";
 
 const fetcher = (url) =>
@@ -30,7 +30,7 @@ export const Assistance = () => {
     input: moment(),
     output: moment(),
     novelity: "",
-    observations: "Sin observaciones",
+    observations: "",
   });
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export const Assistance = () => {
       const body = {
         ...mainForm,
         ...info,
-        supervisor: window.localStorage.getItem("supervisor"),
+        supervisor: supervisor(),
         updateItem,
       };
       const { data } = await axiosInstance({
@@ -96,7 +96,7 @@ export const Assistance = () => {
         input: new Date(),
         output: new Date(),
         novelity: "",
-        observations: "Sin observaciones",
+        observations: "",
       });
     }
   };

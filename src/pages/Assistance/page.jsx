@@ -16,16 +16,6 @@ import DatePicker from "@mui/lab/DatePicker";
 import TimePicker from "@mui/lab/TimePicker";
 import CircularProgress from "@mui/material/CircularProgress";
 
-// Fecha (la registra el sistema)
-// Clase ( Operativo, Administrativo ) VIENE CON EL EMPLEADO
-// Hora Ingreso (Se hace con el sistema)
-
-// Empleado (llamar datos desde el sistema)
-// Turno (  )
-// Planta ( Planta 1, Planta 2 )
-// Novedad ( OBRA, DESCANSO, PERMISO, INCAPACIDAD, SUSPENSION, VACACIONES, OTROS )
-// Observaciones
-
 const Wrap = ({ children }) => (
   <LocalizationProvider dateAdapter={AdapterDateFns}>
     {children}

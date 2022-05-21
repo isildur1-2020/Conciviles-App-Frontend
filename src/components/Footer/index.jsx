@@ -11,7 +11,7 @@ export const Footer = () => (
     py={1}
     mt={6}
   >
-    <Typography component="span" variant="body2">
+    <Typography component="span" variant="button" sx={{ fontSize: 16 }}>
       Conciviles Copyright {new Date().getFullYear()} Colombia
     </Typography>
   </Box>
